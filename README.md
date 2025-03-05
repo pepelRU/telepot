@@ -15,9 +15,9 @@
 
 ---
 
-## Установка и запуск 🚀
+## Установка 🚀
 
 1. Клонируйте репозиторий:  
-   ```bash
-   https://github.com/pepelRU/telepot.git
-   ```
+```bash
+https://github.com/pepelRU/telepot.git
+```
