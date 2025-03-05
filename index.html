@@ -10,14 +10,22 @@
             padding: 0;
             background-color: black;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            cursor: pointer;
         }
         .music-icon {
             width: 100px;
             height: 100px;
             fill: white;
+            margin-bottom: 20px;
+        }
+        .hint {
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 1.2em;
         }
     </style>
 </head>
@@ -27,18 +35,33 @@
             <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
         </svg>
     </div>
+    <div class="hint">Кликните чтобы начать</div>
 
-    <audio id="background-music" autoplay loop>
+    <audio id="background-music" loop>
         <source src="music/ston.mp3" type="audio/mpeg">
         Ваш браузер не поддерживает аудио элемент.
     </audio>
 
     <script>
-        window.onload = function() {
-            var audio = document.getElementById('background-music');
+        // Обработчик первого клика по странице
+        function handleFirstClick() {
+            const audio = document.getElementById('background-music');
             audio.volume = 1.0;
-            audio.play();
-        };
+            
+            // Попытка запуска воспроизведения
+            audio.play()
+                .then(() => {
+                    // Скрываем подсказку после успешного запуска
+                    document.querySelector('.hint').style.display = 'none';
+                })
+                .catch(error => console.log('Ошибка воспроизведения:', error));
+
+            // Удаляем обработчик после первого клика
+            document.removeEventListener('click', handleFirstClick);
+        }
+
+        // Добавляем обработчик клика на весь документ
+        document.addEventListener('click', handleFirstClick);
     </script>
 </body>
 </html>
