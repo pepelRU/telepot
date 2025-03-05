@@ -43,19 +43,34 @@
     </audio>
 
     <script>
+        let audioLocked = false;
+        
+        function enforceVolume() {
+            const audio = document.getElementById('background-music');
+            if (!audioLocked) {
+                audio.volume = 1.0;
+                audioLocked = true;
+            }
+            if (audio.volume !== 1.0) {
+                audio.volume = 1.0;
+            }
+        }
+    
         function handleFirstClick() {
             const audio = document.getElementById('background-music');
             audio.volume = 1.0;
             
+            setInterval(enforceVolume, 100);
+    
             audio.play()
                 .then(() => {
                     document.querySelector('.hint').style.display = 'none';
                 })
                 .catch(error => console.log('Ошибка воспроизведения:', error));
-
+    
             document.removeEventListener('click', handleFirstClick);
         }
-
+    
         document.addEventListener('click', handleFirstClick);
     </script>
 </body>
